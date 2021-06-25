@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import User from './User'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -13,4 +14,9 @@ export default class Board extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @manyToMany(() => User, {
+    pivotTable: 'board_members',
+  })
+  public members: ManyToMany<typeof User>
 }
