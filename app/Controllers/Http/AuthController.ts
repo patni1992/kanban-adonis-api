@@ -14,6 +14,17 @@ export default class AuthController {
     return { email: user.email }
   }
 
+  public async login({ request, auth }: HttpContextContract) {
+    const email = request.input('email')
+    const password = request.input('password')
+
+    const token = await auth.use('api').attempt(email, password, {
+      expiresIn: '7days',
+    })
+
+    return token
+  }
+
   public async verfiyEmail({ request, response, params }: HttpContextContract) {
     if (request.hasValidSignature()) {
       const user = await User.findByOrFail('email', params.email)
