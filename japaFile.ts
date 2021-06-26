@@ -4,6 +4,7 @@ import { join } from 'path'
 import getPort from 'get-port'
 import { configure } from 'japa'
 import sourceMapSupport from 'source-map-support'
+import User from 'App/Models/User'
 
 process.env.NODE_ENV = 'testing'
 process.env.ADONIS_ACE_CWD = join(__dirname)
@@ -21,6 +22,12 @@ async function rollbackMigrations() {
   })
 }
 
+async function insertTestUser() {
+  await execa.node('ace', ['make:user'], {
+    stdio: 'inherit',
+  })
+}
+
 async function startHttpServer() {
   const { Ignitor } = await import('@adonisjs/core/build/src/Ignitor')
   process.env.PORT = String(await getPort())
@@ -29,6 +36,6 @@ async function startHttpServer() {
 
 configure({
   files: ['test/**/*.spec.ts'],
-  before: [runMigrations, startHttpServer],
+  before: [runMigrations, insertTestUser, startHttpServer],
   after: [rollbackMigrations],
 })
