@@ -7,7 +7,7 @@ export default class Boards extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('name').notNullable()
-      table.integer('owner_id').unsigned().references('users.id')
+      table.integer('owner_id').unsigned().notNullable().references('users.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
