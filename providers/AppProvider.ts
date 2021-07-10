@@ -9,6 +9,10 @@ export default class AppProvider {
 
   public async boot() {
     // IoC container is ready
+    const { BaseModel } = await import('@ioc:Adonis/Lucid/Orm')
+    BaseModel.namingStrategy.serializedName = (_, key: string) => {
+      return key
+    }
   }
 
   public async ready() {
