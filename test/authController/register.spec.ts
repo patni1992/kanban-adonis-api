@@ -88,7 +88,7 @@ test.group('AuthController.register', (group) => {
     assert.equal(user?.firstName, firstName)
     assert.equal(user?.lastName, lastName)
     assert.equal(user?.email, email)
-    assert.equal(user?.email_verified_at, null)
+    assert.equal(user?.emailVerifiedAt, null)
   })
 
   test('password gets hashed when successfull', async (assert) => {
