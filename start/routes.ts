@@ -21,6 +21,13 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/boards', 'BoardsController.index').middleware('auth')
+Route.delete('/boards/:id', 'BoardsController.destroy')
+  .where('id', /^[0-9]+$/)
+  .middleware('auth')
+
+Route.get('/boards/:id', 'BoardsController.show')
+  .where('id', /^[0-9]+$/)
+  .middleware('auth')
 
 Route.post('/register', 'AuthController.register')
 Route.get('/verify/:email', 'AuthController.verfiyEmail').as('verifyEmail')

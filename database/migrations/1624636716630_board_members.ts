@@ -6,8 +6,8 @@ export default class BoardMembers extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.integer('board_id').references('boards.id').onDelete('CASCADE')
-      table.integer('user_id').references('users.id').onDelete('CASCADE')
+      table.integer('board_id').references('boards.id').notNullable().onDelete('CASCADE')
+      table.integer('user_id').references('users.id').notNullable().onDelete('CASCADE')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

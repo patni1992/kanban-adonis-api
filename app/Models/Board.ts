@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasMany, hasMany, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import List from './List'
 
 export default class Board extends BaseModel {
   @column({ isPrimary: true })
@@ -8,6 +9,9 @@ export default class Board extends BaseModel {
 
   @column()
   public name: string
+
+  @column()
+  public ownerId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -19,4 +23,16 @@ export default class Board extends BaseModel {
     pivotTable: 'board_members',
   })
   public members: ManyToMany<typeof User>
+
+  @hasMany(() => List)
+  public lists: HasMany<typeof List>
+
+  public async getRoles() {
+    const board: Board = this
+    return await board.related('members').query()
+  }
+
+  public async isUserMember(user: User) {
+    return this.members.find((member) => member.id === user.id)
+  }
 }
