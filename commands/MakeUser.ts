@@ -1,4 +1,5 @@
 import { BaseCommand } from '@adonisjs/core/build/standalone'
+import { DateTime } from 'luxon'
 
 export default class MakeUser extends BaseCommand {
   /**
@@ -32,6 +33,7 @@ export default class MakeUser extends BaseCommand {
       firstName: 'John',
       lastName: 'doe',
       email: 'johndoe@gmail.com',
+      emailVerifiedAt: DateTime.local(),
       password: 'test123',
     })
     console.log('created user')

@@ -26,7 +26,7 @@ export default class User extends BaseModel {
   public rememberMeToken?: string
 
   @column.dateTime()
-  public email_verified_at: DateTime
+  public emailVerifiedAt: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

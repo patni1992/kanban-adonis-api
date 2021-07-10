@@ -2,12 +2,13 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { DateTime } from 'luxon'
 import User from 'App/Models/User'
 import RegisterValidator from 'App/Validators/RegisterValidator'
+import EmailNotVerifiedException from 'App/Exceptions/EmailNotVerifiedException'
 
 export default class AuthController {
   public async register({ request }: HttpContextContract) {
     const validatedData = await request.validate(RegisterValidator)
 
-    const user = await new User().fill(validatedData).save()
+    const user = await User.create(validatedData)
 
     user.sendVerificationEmail()
 
@@ -17,6 +18,12 @@ export default class AuthController {
   public async login({ request, auth }: HttpContextContract) {
     const email = request.input('email')
     const password = request.input('password')
+
+    const user = await User.findBy('email', email)
+
+    if (!user?.emailVerifiedAt) {
+      throw new EmailNotVerifiedException()
+    }
 
     const token = await auth.use('api').attempt(email, password, {
       expiresIn: '7days',
@@ -28,8 +35,8 @@ export default class AuthController {
   public async verfiyEmail({ request, response, params }: HttpContextContract) {
     if (request.hasValidSignature()) {
       const user = await User.findByOrFail('email', params.email)
-      user.email_verified_at = DateTime.local()
-      user.save()
+      user.emailVerifiedAt = DateTime.local()
+      await user.save()
       return 'ok'
     }
 
