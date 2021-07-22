@@ -42,7 +42,7 @@ test.group('BoardsController.show', (group) => {
     const board = await Board.create({ name: 'test-board-1', ownerId: 1 })
     board.related('members').attach([1])
 
-    const { body } = await supertest(BASE_URL)
+    await supertest(BASE_URL)
       .get(`/boards/${board.id}`)
       .set('Authorization', `Bearer ${token}`)
       .expect(200)
@@ -52,6 +52,7 @@ test.group('BoardsController.show', (group) => {
     const token = await login()
     const board = await Board.create({ name: 'test-board-1', ownerId: 1 })
     const user = await User.find(1)
+
     board.related('members').attach([1])
 
     const { body } = await supertest(BASE_URL)

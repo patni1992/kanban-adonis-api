@@ -14,5 +14,7 @@ export default class RegisterValidator {
     ]),
   })
 
-  public messages = {}
+  public messages = {
+    'email.unique': 'Email already registered',
+  }
 }
