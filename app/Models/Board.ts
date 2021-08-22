@@ -1,5 +1,16 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  HasMany,
+  hasMany,
+  manyToMany,
+  ManyToMany,
+  HasOne,
+  hasOne,
+  belongsTo,
+  BelongsTo,
+} from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import List from './List'
 
@@ -23,6 +34,9 @@ export default class Board extends BaseModel {
     pivotTable: 'board_members',
   })
   public members: ManyToMany<typeof User>
+
+  @belongsTo(() => User, { foreignKey: 'ownerId' })
+  public owner: BelongsTo<typeof User>
 
   @hasMany(() => List)
   public lists: HasMany<typeof List>
