@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, hasMany, HasMany, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Board from './Board'
+import Card from './Card'
 
 export default class List extends BaseModel {
   @column({ isPrimary: true })
@@ -23,4 +24,7 @@ export default class List extends BaseModel {
 
   @belongsTo(() => Board)
   public board: BelongsTo<typeof Board>
+
+  @hasMany(() => Card)
+  public cards: HasMany<typeof Card>
 }

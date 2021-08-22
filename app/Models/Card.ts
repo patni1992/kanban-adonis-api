@@ -9,6 +9,9 @@ export default class Card extends BaseModel {
   public name: string
 
   @column()
+  public listId: number
+
+  @column()
   public order: number
 
   @column.dateTime({ autoCreate: true })

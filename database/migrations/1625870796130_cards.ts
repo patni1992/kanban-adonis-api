@@ -11,6 +11,7 @@ export default class Cards extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
       table.integer('board_id').unsigned().references('boards.id').onDelete('CASCADE')
+      table.integer('list_id').unsigned().notNullable().references('cards.id')
     })
   }
 
