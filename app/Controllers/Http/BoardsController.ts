@@ -5,7 +5,6 @@ import StoreBoardValidator from 'App/Validators/StoreBoardValidator'
 export default class BoardsController {
   public async index({ auth }: HttpContextContract) {
     const boards = await auth.user?.related('boards').query().orderBy('created_at', 'desc')
-
     return boards
   }
 
@@ -13,19 +12,20 @@ export default class BoardsController {
     const board = await Board.query()
       .where('id', params.id)
       .preload('members')
-      .preload('lists')
+      .preload('lists', (listsQuery) =>
+        listsQuery.orderBy('order').preload('cards', (cardsQuery) => cardsQuery.orderBy('order'))
+      )
       .firstOrFail()
 
-    const userIsMember = await board.isUserMember(auth.user!)
-
-    if (!userIsMember) return response.forbidden()
+    if (!(await board?.isUserMember(auth.user!))) return response.forbidden()
 
     return response.json(board)
   }
 
-  public async store({ request }: HttpContextContract) {
+  public async store({ request, auth }: HttpContextContract) {
     const validatedData = await request.validate(StoreBoardValidator)
-    const board = await Board.create(validatedData)
+    const board = await Board.create({ ...validatedData, ownerId: auth.user?.id })
+    await board.related('members').attach([auth.user?.id!])
 
     return board
   }

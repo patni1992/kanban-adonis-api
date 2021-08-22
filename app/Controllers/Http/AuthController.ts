@@ -37,6 +37,14 @@ export default class AuthController {
     }
   }
 
+  public async me({ auth }: HttpContextContract) {
+    return auth.user?.serialize({
+      fields: {
+        pick: ['id', 'email', 'firstName', 'lastName'],
+      },
+    })
+  }
+
   public async verfiyEmail({ request, response, params }: HttpContextContract) {
     if (request.hasValidSignature()) {
       const user = await User.findByOrFail('email', params.email)
