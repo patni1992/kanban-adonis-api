@@ -20,7 +20,7 @@ export default class ListsController {
     return board
   }
 
-  public async reorder({ auth, request, response }: HttpContextContract) {
+  public async reorder({ request, response }: HttpContextContract) {
     const { listIds, boardId } = request.only(['listIds', 'boardId'])
 
     const lists = await List.query().where('boardId', boardId)

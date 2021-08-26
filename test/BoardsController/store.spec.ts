@@ -1,6 +1,5 @@
 import Database from '@ioc:Adonis/Lucid/Database'
 import Board from 'App/Models/Board'
-import User from 'App/Models/User'
 import test from 'japa'
 import supertest from 'supertest'
 

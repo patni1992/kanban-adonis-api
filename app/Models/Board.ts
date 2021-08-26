@@ -6,8 +6,6 @@ import {
   hasMany,
   manyToMany,
   ManyToMany,
-  HasOne,
-  hasOne,
   belongsTo,
   BelongsTo,
 } from '@ioc:Adonis/Lucid/Orm'

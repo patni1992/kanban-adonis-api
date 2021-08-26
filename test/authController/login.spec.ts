@@ -2,7 +2,6 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 import test from 'japa'
 import supertest from 'supertest'
-import Mail from '@ioc:Adonis/Addons/Mail'
 import { BASE_URL } from '../utils'
 
 const { email, password } = {

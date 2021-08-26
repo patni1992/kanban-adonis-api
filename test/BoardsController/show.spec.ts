@@ -37,7 +37,7 @@ test.group('BoardsController.show', (group) => {
       .expect(403)
   })
 
-  test('user should be able to view a board where they are a member', async (assert) => {
+  test('user should be able to view a board where they are a member', async () => {
     const token = await login()
     const board = await Board.create({ name: 'test-board-1', ownerId: 1 })
     board.related('members').attach([1])

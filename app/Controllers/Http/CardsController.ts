@@ -1,10 +1,8 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Board from 'App/Models/Board'
 import Card from 'App/Models/Card'
-import StoreBoardValidator from 'App/Validators/StoreBoardValidator'
 
 export default class CardsController {
-  public async reorder({ auth, request, response }: HttpContextContract) {
+  public async reorder({ request, response }: HttpContextContract) {
     const { cardIds, listId } = request.only(['cardIds', 'listId'])
 
     const cards = await Card.query().whereIn('id', cardIds)

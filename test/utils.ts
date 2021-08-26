@@ -1,5 +1,3 @@
-import Database from '@ioc:Adonis/Lucid/Database'
-import User from 'App/Models/User'
 import supertest from 'supertest'
 
 const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`
