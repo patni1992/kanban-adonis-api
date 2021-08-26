@@ -20,6 +20,7 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+Route.get('/hello', () => 'hello')
 Route.get('/boards', 'BoardsController.index').middleware('auth')
 Route.post('/boards', 'BoardsController.store').middleware('auth')
 Route.delete('/boards/:id', 'BoardsController.destroy')
