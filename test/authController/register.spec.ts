@@ -78,6 +78,7 @@ test.group('AuthController.register', (group) => {
   })
 
   test('saves a user to the database when successfull', async (assert) => {
+    Mail.trap(() => {})
     await supertest(BASE_URL)
       .post('/register')
       .send({ firstName, lastName, password, email })
@@ -92,6 +93,7 @@ test.group('AuthController.register', (group) => {
   })
 
   test('password gets hashed when successfull', async (assert) => {
+    Mail.trap(() => {})
     await supertest(BASE_URL)
       .post('/register')
       .send({ firstName, lastName, password, email })
