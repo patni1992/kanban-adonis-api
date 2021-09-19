@@ -31,6 +31,7 @@ Route.get('/boards/:id', 'BoardsController.show')
   .middleware('auth')
 
 Route.get('/lists', 'ListsController.index').middleware('auth')
+Route.post('/lists', 'ListsController.store').middleware('auth')
 Route.post('/lists/reorder', 'ListsController.reorder').middleware('auth')
 
 Route.post('/cards/reorder', 'CardsController.reorder').middleware('auth')

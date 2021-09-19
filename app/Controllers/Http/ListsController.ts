@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import List from 'App/Models/List'
 import Board from 'App/Models/Board'
+import StoreListValidator from 'App/Validators/storeListValidator'
 
 export default class ListsController {
   public async index({ auth, request, response }: HttpContextContract) {
@@ -20,6 +21,21 @@ export default class ListsController {
     return board
   }
 
+  public async store({ request, response }: HttpContextContract) {
+    const { boardId, name } = await request.validate(StoreListValidator)
+    await Board.findOrFail(boardId)
+    const lastListInBoard = await List.query().where({ boardId }).orderBy('order', 'desc').first()
+
+    const order = lastListInBoard ? lastListInBoard.order + 1 : 0
+
+    const list = await List.create({
+      boardId,
+      name,
+      order,
+    })
+
+    return list
+  }
   public async reorder({ request, response }: HttpContextContract) {
     const { listIds, boardId } = request.only(['listIds', 'boardId'])
 
