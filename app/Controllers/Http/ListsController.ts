@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import List from 'App/Models/List'
 import Board from 'App/Models/Board'
-import StoreListValidator from 'App/Validators/storeListValidator'
+import StoreListValidator from 'App/Validators/StoreListValidator'
 
 export default class ListsController {
   public async index({ auth, request, response }: HttpContextContract) {
