@@ -36,6 +36,7 @@ export default class ListsController {
 
     return list
   }
+
   public async reorder({ request, response }: HttpContextContract) {
     const { listIds, boardId } = request.only(['listIds', 'boardId'])
 

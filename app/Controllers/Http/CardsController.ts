@@ -1,5 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Card from 'App/Models/Card'
+import List from 'App/Models/List'
+import StoreCardValidator from 'App/Validators/StoreCardValidator'
 
 export default class CardsController {
   public async reorder({ request, response }: HttpContextContract) {
@@ -15,5 +17,21 @@ export default class CardsController {
     await Promise.all(promises)
 
     return response.noContent()
+  }
+
+  public async store({ request, response }: HttpContextContract) {
+    const { listId, name } = await request.validate(StoreCardValidator)
+    await List.findOrFail(listId)
+    const lastCardInList = await Card.query().where({ listId }).orderBy('order', 'desc').first()
+
+    const order = lastCardInList ? lastCardInList.order + 1 : 0
+
+    const card = await Card.create({
+      listId,
+      name,
+      order,
+    })
+
+    return card
   }
 }
