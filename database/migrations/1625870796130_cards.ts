@@ -8,6 +8,7 @@ export default class Cards extends BaseSchema {
       table.increments('id')
       table.string('name').notNullable()
       table.integer('order').notNullable()
+      table.integer('owner_id').unsigned().notNullable().references('users.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
       table.integer('board_id').unsigned().references('boards.id').onDelete('CASCADE')
