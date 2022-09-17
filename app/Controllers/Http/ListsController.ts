@@ -21,7 +21,7 @@ export default class ListsController {
     return board
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request }: HttpContextContract) {
     const { boardId, name } = await request.validate(StoreListValidator)
     await Board.findOrFail(boardId)
     const lastListInBoard = await List.query().where({ boardId }).orderBy('order', 'desc').first()

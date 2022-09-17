@@ -20,7 +20,7 @@ export default class CardsController {
     return response.noContent()
   }
 
-  public async store({ request, response, auth }: HttpContextContract) {
+  public async store({ request, auth }: HttpContextContract) {
     const { listId, name } = await request.validate(StoreCardValidator)
     await List.findOrFail(listId)
     const lastCardInList = await Card.query().where({ listId }).orderBy('order', 'desc').first()
