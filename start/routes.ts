@@ -36,6 +36,8 @@ Route.post('/lists/reorder', 'ListsController.reorder').middleware('auth')
 
 Route.post('/cards/reorder', 'CardsController.reorder').middleware('auth')
 Route.post('/cards', 'CardsController.store').middleware('auth')
+Route.delete('/cards/:id', 'CardsController.destroy').middleware('auth')
+Route.put('/cards/:id', 'CardsController.update').middleware('auth')
 
 Route.post('/login', 'AuthController.login')
 Route.post('/register', 'AuthController.register')
