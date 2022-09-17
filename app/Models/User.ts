@@ -22,10 +22,10 @@ export default class User extends BaseModel {
   @column({ serializeAs: null })
   public password: string
 
-  @column()
+  @column({ serializeAs: null })
   public rememberMeToken?: string
 
-  @column.dateTime()
+  @column.dateTime({ serializeAs: null })
   public emailVerifiedAt: DateTime | null
 
   @column.dateTime({ autoCreate: true })
