@@ -16,8 +16,7 @@
   },
   "preloads": [
     "./start/routes",
-    "./start/kernel",
-    "./start/events"
+    "./start/kernel"
   ],
   "providers": [
     "./providers/AppProvider",
@@ -43,19 +42,5 @@
       "pattern": "resources/views/**/*.edge",
       "reloadServer": false
     }
-  ],
-  "tests": {
-    "suites": [
-      {
-        "name": "functional",
-        "files": [
-          "tests/functional/**/*.spec(.ts|.js)"
-        ],
-        "timeout": 60000
-      }
-    ]
-  },
-  "testProviders": [
-    "@japa/preset-adonis/TestsProvider"
   ]
 }
