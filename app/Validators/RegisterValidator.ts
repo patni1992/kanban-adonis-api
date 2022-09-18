@@ -9,7 +9,8 @@ export default class RegisterValidator {
     firstName: schema.string({ trim: true }),
     lastName: schema.string({ trim: true }),
     email: schema.string({ trim: true }, [
-      rules.email({ sanitize: true }),
+      rules.email(),
+      rules.normalizeEmail({ allLowercase: true }),
       rules.unique({ table: 'users', column: 'email' }),
     ]),
   })
