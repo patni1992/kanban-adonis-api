@@ -1,5 +1,4 @@
 {
-  "extends": "./node_modules/adonis-preset-ts/tsconfig",
   "include": [
     "**/*"
   ],
@@ -31,7 +30,7 @@
       "@adonisjs/lucid",
       "@adonisjs/auth",
       "@adonisjs/mail",
-      "@adonisjs/view"
+      "@adonisjs/view",
     ]
   }
 }
